@@ -83,8 +83,8 @@ class HPV_PocketFi:
     def Get_Info(self) -> dict:
         '''Получение информации о балансе и скорости майнинга'''
 
-        URL = 'https://bot.pocketfi.org/mining/getUserMining'
-        Headers = {'Connection': 'keep-alive', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'User-Agent': self.UA, 'sec-ch-ua-platform': 'Android', 'Accept': '*/*', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'}
+        URL = 'https://gm.pocketfi.org/mining/getUserMining'
+        Headers = {'User-Agent': self.UA, 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramrawdata': self.Token, 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"', 'origin': 'https://pocketfi.app', 'x-requested-with': 'org.telegram.plus', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'https://pocketfi.app/', 'accept-language': 'ru,ru-RU;q=0.9,en-US;q=0.8,en;q=0.7'}
 
         try:
             HPV = get(URL, headers=Headers, proxies=self.Proxy).json()['userMining']
@@ -103,7 +103,7 @@ class HPV_PocketFi:
         '''Получение ежедневной награды'''
 
         URL = 'https://rubot.pocketfi.org/boost/activateDailyBoost'
-        Headers = {'Connection': 'keep-alive', 'Content-Length': '0', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'User-Agent': self.UA, 'sec-ch-ua-platform': '"Android"', 'Accept': '*/*', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'}
+        Headers = {'User-Agent': self.UA, 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Language': 'ru,ru-RU;q=0.9,en-US;q=0.8,en;q=0.7'}
 
         Reward = {'1': 1, '2': 1, '3': 2, '4': 3, '5': 5, '6': 8, '7': 13, '8': 21, '9': 34, '10': 55}
 
@@ -123,14 +123,11 @@ class HPV_PocketFi:
         '''Выполнение заданий связанные с подписками'''
 
         URL = 'https://rubot.pocketfi.org/confirmSubscription'
-        Headers = {'Connection': 'keep-alive', 'Content-Length': '30', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'Content-Type': 'text/plain;charset=UTF-8', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'User-Agent': self.UA, 'sec-ch-ua-platform': '"Android"', 'Accept': '*/*', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'}
+        Headers = {'User-Agent': self.UA, 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'Content-Type': 'text/plain;charset=UTF-8', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Language': 'ru,ru-RU;q=0.9,en-US;q=0.8,en;q=0.7'}
         Data = '{"subscriptionType":"' + Task + '"}'
 
         try:
-            if post(URL, headers=Headers, data=Data, proxies=self.Proxy).json()['ok']:
-                return True
-            else:
-                return False
+            return True if post(URL, headers=Headers, data=Data, proxies=self.Proxy).json()['ok'] else False
         except:
             return False
 
@@ -139,8 +136,8 @@ class HPV_PocketFi:
     def Claim(self) -> None:
         '''Сбор монет'''
 
-        URL = 'https://bot.pocketfi.org/mining/claimMining'
-        Headers = {'Connection': 'keep-alive', 'Content-Length': '0', 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramRawData': self.Token, 'sec-ch-ua-mobile': '?1', 'User-Agent': self.Token, 'sec-ch-ua-platform': 'Android', 'Accept': '*/*', 'Origin': 'https://pocketfi.app', 'X-Requested-With': 'org.telegram.plus', 'Sec-Fetch-Site': 'cross-site', 'Sec-Fetch-Mode': 'cors', 'Sec-Fetch-Dest': 'empty', 'Referer': 'https://pocketfi.app/', 'Accept-Encoding': 'gzip, deflate, br', 'Accept-Language': 'ru-RU,ru;q=0.9,en-US;q=0.8,en;q=0.7'}
+        URL = 'https://gm.pocketfi.org/mining/claimMining'
+        Headers = {'User-Agent': self.UA, 'sec-ch-ua': '"Chromium";v="122", "Not(A:Brand";v="24", "Android WebView";v="122"', 'telegramrawdata': self.Token, 'sec-ch-ua-mobile': '?1', 'sec-ch-ua-platform': '"Android"', 'origin': 'https://pocketfi.app', 'x-requested-with': 'org.telegram.plus', 'sec-fetch-site': 'cross-site', 'sec-fetch-mode': 'cors', 'sec-fetch-dest': 'empty', 'referer': 'https://pocketfi.app/', 'accept-language': 'ru,ru-RU;q=0.9,en-US;q=0.8,en;q=0.7'}
 
         try:
             Mined = self.Get_Info()["Mined"]
@@ -231,11 +228,14 @@ if __name__ == '__main__':
         print(Time + DIVIDER + '🌐' + DIVIDER + Text)
         sleep(5)
 
-    for Account, URL in HPV_Get_Accounts().items():
-        if Proxy:
-            Proxy = cycle(Proxy)
-            Thread(target=Start_Thread, args=(Account, URL, next(Proxy),)).start()
-        else:
-            Thread(target=Start_Thread, args=(Account, URL,)).start()
+    try:
+        for Account, URL in HPV_Get_Accounts().items():
+            if Proxy:
+                Proxy = cycle(Proxy)
+                Thread(target=Start_Thread, args=(Account, URL, next(Proxy),)).start()
+            else:
+                Thread(target=Start_Thread, args=(Account, URL,)).start()
+    except:
+        print(Fore.RED + '\n\tОшибка чтения `HPV_Account.json`, ссылки указаны некорректно!')
 
 
